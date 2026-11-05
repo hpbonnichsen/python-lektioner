@@ -35,11 +35,38 @@
   </div>
   <div class="sheet-row">
     <pre><code>d.get("x", "standard")</code></pre>
-    <p>Værdien, hvis nøglen findes — ellers standardværdien. Crasher aldrig.</p>
+    <p>Værdien, hvis nøglen findes – ellers standardværdien. Stopper aldrig programmet.</p>
   </div>
 
+  <div class="sheet-row">
+    <pre><code>d.pop("hej")</code></pre>
+    <p>Fjerner nøglen og returnerer dens værdi. <code>d.clear()</code> tømmer hele dict'en.</p>
+  </div>
+
+  <h2>Gennemløb</h2>
+  <div class="sheet-row">
+    <pre><code>for n in d:
+    print(n, d[n])</code></pre>
+    <p><code>for</code> over en dict giver <strong>nøglerne</strong>. Værdien slår du op med <code>d[n]</code>.</p>
+  </div>
+  <div class="sheet-row">
+    <pre><code>for n, v in d.items():
+    print(n, v)</code></pre>
+    <p><code>.items()</code> giver par af nøgle og værdi. <code>.keys()</code> og <code>.values()</code> giver hver sin del. Teknisk set er det »views«, ikke lister.</p>
+  </div>
+
+  <h2>Samlinger i Python</h2>
+  <table class="ref-table">
+    <tr><th>Type</th><th>Dansk</th><th>Eksempel</th></tr>
+    <tr><td><code>list</code></td><td>liste</td><td><code>['a', 'b']</code></td></tr>
+    <tr><td><code>tuple</code></td><td>tupel</td><td><code>('a', 'b')</code></td></tr>
+    <tr><td><code>set</code></td><td>mængde</td><td><code>{'a', 'b'}</code></td></tr>
+    <tr><td><code>dict</code></td><td>ordbog</td><td><code>{'a': 1, 'b': 2}</code></td></tr>
+  </table>
+  <p class="sheet-meta">En dict med nøglerne 0, 1, 2 ligner en liste. Derfor kaldes dicts en generalisering af lister. Nøgler skal være uforanderlige (fx strenge og tal); værdier må være alt.</p>
+
   <h2>Claudes beskedformat</h2>
-  <pre><code>{"role": "user", "content": "Hello, Claude"}</code></pre>
+  <pre><code>{"role": "user", "content": "Hej, Claude"}</code></pre>
   <p class="sheet-meta">
     <code>"role"</code> er <code>"user"</code> eller <code>"assistant"</code>; <code>"content"</code> er teksten.
     <a href="https://platform.claude.com/docs/en/api/messages">Anthropic: Messages API</a>
@@ -47,11 +74,11 @@
 
   <h2>Faldgruber</h2>
   <ul class="pitfall-list">
-    <li><strong>Nøgler matcher præcist.</strong> <code>"Hej"</code> ≠ <code>"hej"</code>.</li>
+    <li><strong>Nøgler skal stemme nøjagtigt overens.</strong> <code>"Hej"</code> ≠ <code>"hej"</code>.</li>
     <li><strong>Slå op med nøglen, ikke værdien.</strong>
       <span class="wrong">besked["user"]</span> → <span class="right">besked["role"]</span></li>
     <li><strong>Anførselstegn i f-strenge.</strong>
-      <span class="right">f"{besked['content']}"</span> — brug den anden slags inde i <code>{}</code>.</li>
+      <span class="right">f"{besked['content']}"</span> – brug den anden slags inde i <code>{}</code>.</li>
   </ul>
 
   <div class="nav-links">

@@ -9,29 +9,48 @@
 <body>
 <div class="page">
   <p class="kicker">Lektion 6</p>
-  <h1>Dictionaries — at slå op med et navn</h1>
+  <h1>Dictionaries – at slå op med et navn</h1>
 
   <p>
     En variabel gemmer én værdi under ét navn. En <strong>dictionary</strong> (kort: <em>dict</em>) gemmer
-    <em>mange</em> værdier, hver under sit eget navn — en <strong>nøgle</strong>. Du slår op med nøglen og får
-    <strong>værdien</strong> tilbage, ligesom i en ordbog: slå "hej" op, få forklaringen.
+    <em>mange</em> værdier, hver under sit eget navn – en <strong>nøgle</strong>. Du slår op med nøglen og får
+    <strong>værdien</strong> tilbage, ligesom i en ordbog: Slå »hej« op, og få forklaringen.
   </p>
 
   <div class="callout">
-    <strong>Hvorfor det her betyder noget:</strong> Hver eneste besked, du sender til Claude, er en dict.
-    Sådan ser en besked ud i
+    <strong>Hvorfor er det vigtigt?</strong> Hver eneste besked, du sender til Claude, er en dict.
+    Sådan ser en besked ud ifølge
     <a href="https://platform.claude.com/docs/en/api/messages">Anthropics API-dokumentation</a>:
-    <pre><code>{"role": "user", "content": "Hello, Claude"}</code></pre>
-    To nøgler: <code>"role"</code> (hvem taler) og <code>"content"</code> (hvad siges der). Når du kan bygge og læse
+    <pre><code>{"role": "user", "content": "Hej, Claude"}</code></pre>
+    To nøgler: <code>"role"</code> (hvem der taler) og <code>"content"</code> (hvad der bliver sagt). Når du kan bygge og læse
     den slags, kan du tale Claudes sprog.
   </div>
 
   <div class="source">
     <span class="label">Primær kilde til denne lektion</span>
-    <a href="https://automatetheboringstuff.com/3e/chapter7.html">Automate the Boring Stuff — Kapitel 7: "Dictionaries and Structuring Data"</a>
-    af Al Sweigart. Læs afsnittet "The Dictionary Data Type" og "Checking Whether a Key Exists". Til præcise opslag:
+    <a href="https://automatetheboringstuff.com/3e/chapter7.html">Automate the Boring Stuff – kapitel 7: »Dictionaries and Structuring Data«</a>
+    af Al Sweigart. Læs afsnittene »The Dictionary Data Type« og »Checking Whether a Key Exists«. Til præcise opslag:
     <a href="https://docs.python.org/3/tutorial/datastructures.html#dictionaries">Python-tutorialen, afsnit 5.5</a>.
+    Samlingstabellen, <code>.pop()</code> og afsnit 4–6 nedenfor bygger på kursets slides om dictionaries (Programmering, Institut for Datalogi).
   </div>
+
+  <h2>Dicts blandt Pythons samlinger</h2>
+  <p>
+    En dict er én af de fire mest brugte <strong>samlinger</strong> (collections) i Python, altså datatyper der
+    opbevarer flere værdier på én gang:
+  </p>
+  <table class="ref-table">
+    <tr><th>Type</th><th>Dansk navn</th><th>Eksempel</th></tr>
+    <tr><td><code>list</code></td><td>liste</td><td><code>['æble', 'banan', 'kiwi']</code></td></tr>
+    <tr><td><code>tuple</code></td><td>tupel</td><td><code>('æble', 'banan', 'kiwi')</code></td></tr>
+    <tr><td><code>set</code></td><td>mængde</td><td><code>{'æble', 'banan', 'kiwi'}</code></td></tr>
+    <tr><td><code>dict</code></td><td>ordbog</td><td><code>{'æble': 2, 'banan': 5, 'kiwi': 3}</code></td></tr>
+  </table>
+  <p>
+    Læg mærke til, at <code>set</code> og <code>dict</code> begge bruger krøllede parenteser. Det er
+    <strong>kolonerne</strong> mellem nøgle og værdi, der gør det til en dict. I dette kursus kommer lister i næste
+    lektion; tupler og mængder venter.
+  </p>
 
   <h2>1. Opret og slå op</h2>
   <pre><code>svar = {"hej": "Hej med dig!", "farvel": "Vi ses!"}
@@ -39,8 +58,14 @@
 print(svar["hej"])      # Hej med dig!</code></pre>
   <p>
     Krøllede parenteser <code>{}</code> laver en dict. Hvert par skrives <code>nøgle: værdi</code>, adskilt med komma.
-    Du slår op med firkantede parenteser og <em>nøglen</em>: <code>svar["hej"]</code>. Nøglen skal matche præcist —
+    Du slår op med firkantede parenteser og <em>nøglen</em>: <code>svar["hej"]</code>. Nøglen skal stemme nøjagtigt overens –
     <code>"Hej"</code> og <code>"hej"</code> er to forskellige nøgler.
+  </p>
+  <p>
+    <strong>Hvad må nøgler og værdier være?</strong> Værdierne må være hvad som helst: tal, strenge, ja endda andre
+    dicts. Nøglerne skal være værdier, der ikke kan ændres, typisk strenge eller tal. Prøver du at bruge fx en liste
+    som nøgle, får du en <code>TypeError</code>
+    (<a href="https://docs.python.org/3/tutorial/datastructures.html#dictionaries">Python-tutorialen</a>).
   </p>
 
   <h2>2. Tilføj eller ændr</h2>
@@ -48,8 +73,8 @@ print(svar["hej"])      # Hej med dig!</code></pre>
 svar["hej"] = "Goddag!"       # findes allerede → overskrives
 print(svar)</code></pre>
   <p>
-    Samme syntaks til begge dele — præcis som med en variabel: findes nøglen ikke, oprettes den; findes den,
-    glemmes den gamle værdi. En nøgle kan kun findes én gang i samme dict. Bemærk, at Python selv printer
+    Samme syntaks til begge dele – præcis som med en variabel: findes nøglen ikke, oprettes den; findes den,
+    glemmes den gamle værdi. En nøgle kan kun findes én gang i samme dict. Bemærk, at Python selv udskriver
     dicts med enkelte anførselstegn: <code>{'hej': 'Goddag!', ...}</code>.
   </p>
 
@@ -57,7 +82,7 @@ print(svar)</code></pre>
   <pre><code>print(svar["godnat"])
 # KeyError: 'godnat'</code></pre>
   <p>
-    En manglende nøgle crasher programmet med en <code>KeyError</code>
+    En manglende nøgle får programmet til at stoppe med en <code>KeyError</code>
     (<a href="https://docs.python.org/3/tutorial/datastructures.html#dictionaries">Python-tutorialen</a>).
     To måder at undgå det på:
   </p>
@@ -69,25 +94,93 @@ else:
     <pre><code>print(svar.get(x, "Forstår ikke"))</code></pre>
   </div>
   <p>
-    <code>in</code> giver en boolean: findes nøglen? <code>.get(nøgle, standard)</code> returnerer værdien, hvis nøglen
-    findes — ellers standardværdien. <code>in</code> og opslag virker kun på <em>nøglerne</em>, ikke på værdierne.
+    <code>in</code> giver en sandhedsværdi (<code>True</code> eller <code>False</code>): Findes nøglen? <code>.get(nøgle, standard)</code> returnerer værdien, hvis nøglen
+    findes – ellers standardværdien. <code>in</code> og opslag virker kun på <em>nøglerne</em>, ikke på værdierne.
   </p>
+  <p>
+    Vil du <em>fjerne</em> en nøgle, bruger du <code>.pop(nøgle)</code>. Den fjerner parret og returnerer værdien. Kursets slides kalder variablen <code>danskEngelsk</code>;
+    her følger vi Pythons navnestandard med små bogstaver og understreg
+    (<a href="https://peps.python.org/pep-0008/#function-and-variable-names">PEP 8</a>):
+  </p>
+  <pre><code>dansk_engelsk = {"bord": "table", "hvid": "white", "bold": "ball"}
+dansk_engelsk.pop("hvid")
+print(dansk_engelsk)     # {'bord': 'table', 'bold': 'ball'}</code></pre>
+
+  <h2>4. Dicts er en generalisering af lister</h2>
+  <p>
+    En liste slår op med en position, der altid er <code>0, 1, 2, …</code>. En dict slår op med en nøgle, som
+    <em>du</em> vælger. Lav en dict med tallene som nøgler, og den opfører sig næsten som en liste:
+  </p>
+  <div class="sheet-row">
+    <pre><code>lande = ["Danmark", "Sverige", "Norge"]
+print(lande[1])    # Sverige</code></pre>
+    <pre><code>lande = {0: "Danmark", 1: "Sverige", 2: "Norge"}
+print(lande[1])    # Sverige</code></pre>
+  </div>
+  <p>
+    Forskellen er, at nøglerne i en dict ikke behøver at være tal i rækkefølge. De kan være
+    <code>"bord"</code>, <code>"role"</code> eller hvad der giver mening for dine data. Lister får deres egen lektion
+    næste gang.
+  </p>
+
+  <h2>5. Gennemløb med for</h2>
+  <p>
+    En <code>for</code>-løkke kører én gang for hvert element i en samling. Du behøver ingen tæller og intet
+    <code>break</code>, fordi løkken stopper af sig selv, når der ikke er flere elementer. Bruger du den på en dict,
+    får du <strong>nøglerne</strong>:
+  </p>
+  <div class="sheet-row">
+    <pre><code>for x in dansk_engelsk:
+    print(x)
+# bord
+# bold</code></pre>
+    <pre><code>for x in dansk_engelsk:
+    print(x, dansk_engelsk[x])
+# bord table
+# bold ball</code></pre>
+  </div>
+  <p>
+    Vil du have nøgle og værdi på én gang, så brug <code>.items()</code>, som giver parrene. Du skriver to
+    variabelnavne adskilt af komma:
+  </p>
+  <pre><code>for dansk, engelsk in dansk_engelsk.items():
+    print(dansk, engelsk)</code></pre>
+
+  <h2>6. Metoder på en dict</h2>
+  <table class="ref-table">
+    <tr><th>Metode</th><th>Hvad den gør</th></tr>
+    <tr><td><code>d.keys()</code></td><td>Giver alle nøglerne</td></tr>
+    <tr><td><code>d.values()</code></td><td>Giver alle værdierne</td></tr>
+    <tr><td><code>d.items()</code></td><td>Giver alle par af nøgle og værdi</td></tr>
+    <tr><td><code>d.get(n, standard)</code></td><td>Værdien for <code>n</code>, eller standardværdien hvis nøglen mangler</td></tr>
+    <tr><td><code>d.pop(n)</code></td><td>Fjerner nøglen <code>n</code> og returnerer dens værdi</td></tr>
+    <tr><td><code>d.clear()</code></td><td>Fjerner alle par, så dict'en bliver tom</td></tr>
+  </table>
+  <div class="callout">
+    <strong>Lille præcisering:</strong> Kursets slides siger, at <code>keys()</code>, <code>values()</code> og
+    <code>items()</code> returnerer en liste. I praksis kan du bruge dem som lister i en <code>for</code>-løkke, men
+    teknisk set er det »views« og ikke rigtige lister. <code>print(d.keys())</code> viser fx
+    <code>dict_keys(['bord', 'bold'])</code>
+    (<a href="https://automatetheboringstuff.com/3e/chapter7.html">ATBS kap. 7, »Returning Keys and Values«</a>).
+  </div>
 
   <h2>Tjek din forståelse</h2>
   <p style="font-family: var(--sans); color: var(--text-muted); font-size: 0.9rem;">
-    Forudsig outputtet, før du klikker. Det sidste spørgsmål er det sværeste.
+    Forudsig, hvad der bliver udskrevet, før du klikker. Det sidste spørgsmål er det sværeste.
   </p>
   <div id="quiz-1"></div>
   <div id="quiz-2"></div>
   <div id="quiz-3"></div>
+  <div id="quiz-5"></div>
+  <div id="quiz-6"></div>
   <div id="quiz-4"></div>
 
   <h2>Din opgave</h2>
 
   <div class="task">
-    <h3>Del A — en bot med faste svar</h3>
+    <h3>Del A – en bot med faste svar</h3>
     <p>
-      Lav <code>oevelser/svar_bot.py</code> med udgangspunkt i din echo-bot. Skift indholdet af
+      Lav <code>oevelser/svar_bot.py</code> med udgangspunkt i din ekkobot (<code>echo_bot.py</code>). Skift indholdet af
       <code>lav_bot_svar(besked)</code> ud, så funktionen:
     </p>
     <ul>
@@ -95,19 +188,24 @@ else:
       <li>returnerer det faste svar, hvis beskeden er en nøgle i dict'en</li>
       <li>ellers returnerer det gamle ekko: <code>"Bot: Du sagde: ..."</code></li>
     </ul>
-    <p>Løkken, <code>"afslut"</code> og tælleren skal ikke ændres. Test både en kendt og en ukendt besked.</p>
+    <p>Løkken, <code>"afslut"</code> og tælleren skal ikke ændres. Afprøv både en kendt og en ukendt besked.</p>
+    <p>
+      <strong>Udvidelse:</strong> Skriver brugeren <code>"hjælp"</code>, skal botten svare med alle de beskeder, den
+      kender, fx <code>Jeg kender: hej hvem er du tak</code>. Byg teksten med en <code>for</code>-løkke over dict'en.
+      Tip: Det er samme mønster som din sum fra opsamlingen, bare med tekst i stedet for tal.
+    </p>
   </div>
 
   <div class="task">
-    <h3>Del B — byg en besked i Claudes format</h3>
+    <h3>Del B – byg en besked i Claudes format</h3>
     <p>
       Skriv en funktion <code>lav_besked(rolle, tekst)</code>, der <em>returnerer</em> en dict med nøglerne
       <code>"role"</code> og <code>"content"</code>. Flere parametre adskilles med komma; argumenterne fordeles
       i samme rækkefølge.
     </p>
     <p>
-      Brug den i løkken: byg en besked med rollen <code>"user"</code> ud fra det, brugeren skrev, og print
-      <code>Du (user): ...</code> ved at slå op i den dict, du fik tilbage — ikke ved at bruge <code>x</code> direkte.
+      Brug den i løkken: byg en besked med rollen <code>"user"</code> ud fra det, brugeren skrev, og udskriv
+      <code>Du (user): ...</code> ved at slå op i den dict, du fik tilbage – ikke ved at bruge <code>x</code> direkte.
     </p>
   </div>
 
@@ -124,41 +222,41 @@ else:
   </p>
 
   <p class="ask-agent">
-    Sidder du fast, eller er noget uklart? Spørg din AI-underviser — vis gerne din kode, så finder vi præcis
+    Sidder du fast, eller er noget uklart? Spørg din AI-underviser – vis gerne din kode, så finder vi præcis
     det sted, hvor tråden tabes.
   </p>
 
   <div class="nav-links">
     <span><a href="0005-opsamling.html">← Forrige: opsamling</a></span>
-    <span>Næste: lister — samtalens hukommelse</span>
+    <span>Næste: lister – samtalens hukommelse</span>
   </div>
 </div>
 
 <script src="../assets/quiz.js"></script>
 <script>
   renderQuiz(document.getElementById('quiz-1'), {
-    question: 'Hvad printes?<pre><code>svar = {"hej": "Hej med dig!", "farvel": "Vi ses!"}\nprint(svar["farvel"])</code></pre>',
+    question: 'Hvad udskrives?<pre><code>svar = {"hej": "Hej med dig!", "farvel": "Vi ses!"}\nprint(svar["farvel"])</code></pre>',
     options: [
-      { text: 'farvel', correct: false, explain: 'Opslaget giver værdien, der hører til nøglen — ikke nøglen selv.' },
+      { text: 'farvel', correct: false, explain: 'Opslaget giver værdien, der hører til nøglen – ikke nøglen selv.' },
       { text: 'Vi ses!', correct: true, explain: 'Nøglen "farvel" peger på værdien "Vi ses!".' },
       { text: 'KeyError', correct: false, explain: '"farvel" findes som nøgle i dict\'en, så opslaget lykkes.' },
     ]
   });
 
   renderQuiz(document.getElementById('quiz-2'), {
-    question: 'Hvad printes?<pre><code>alder = {"Anna": 27}\nalder["Bo"] = 31\nalder["Anna"] = 28\nprint(alder)</code></pre>',
+    question: 'Hvad udskrives?<pre><code>alder = {"Anna": 27}\nalder["Bo"] = 31\nalder["Anna"] = 28\nprint(alder)</code></pre>',
     options: [
-      { text: "{'Anna': 27, 'Bo': 31}", correct: false, explain: 'Den sidste tildeling overskriver Annas værdi — 27 er glemt.' },
+      { text: "{'Anna': 27, 'Bo': 31}", correct: false, explain: 'Den sidste tildeling overskriver Annas værdi – 27 er glemt.' },
       { text: "{'Bo': 31, 'Anna': 28}", correct: false, explain: 'At ændre en værdi flytter ikke nøglen. "Anna" beholder sin plads forrest.' },
       { text: "{'Anna': 28, 'Bo': 31}", correct: true, explain: '"Bo" tilføjes, og "Anna" overskrives på sin eksisterende plads.' },
     ]
   });
 
   renderQuiz(document.getElementById('quiz-3'), {
-    question: '<strong>Brugeren taster "Hej" (med stort H).</strong> Hvad printes?<pre><code>svar = {"hej": "Hej med dig!"}\nx = input("Du: ")\nprint(svar.get(x, "Forstår ikke"))</code></pre>',
+    question: '<strong>Brugeren taster "Hej" (med stort H).</strong> Hvad udskrives?<pre><code>svar = {"hej": "Hej med dig!"}\nx = input("Du: ")\nprint(svar.get(x, "Forstår ikke"))</code></pre>',
     options: [
-      { text: 'Hej med dig!', correct: false, explain: 'Nøgler skal matche præcist. "Hej" og "hej" er to forskellige nøgler.' },
-      { text: 'KeyError: Hej', correct: false, explain: '.get() crasher aldrig på en manglende nøgle — den giver standardværdien.' },
+      { text: 'Hej med dig!', correct: false, explain: 'Nøgler skal stemme nøjagtigt overens. "Hej" og "hej" er to forskellige nøgler.' },
+      { text: 'KeyError: Hej', correct: false, explain: '.get() stopper aldrig programmet ved en manglende nøgle – den giver standardværdien.' },
       { text: 'Forstår ikke', correct: true, explain: '"Hej" findes ikke som nøgle, så .get() returnerer standardværdien.' },
     ]
   });
@@ -166,9 +264,27 @@ else:
   renderQuiz(document.getElementById('quiz-4'), {
     question: 'Hvad sker der?<pre><code>besked = {"role": "user", "content": "Hej"}\nprint(besked["user"])</code></pre>',
     options: [
-      { text: 'Printer: user', correct: false, explain: '"user" er en værdi, ikke en nøgle. Opslag virker kun med nøgler — prøv besked["role"].' },
+      { text: 'Udskriver: user', correct: false, explain: '"user" er en værdi, ikke en nøgle. Opslag virker kun med nøgler – prøv besked["role"].' },
       { text: 'KeyError: user', correct: true, explain: 'Nøglerne er "role" og "content". "user" er en værdi, så opslaget fejler.' },
-      { text: 'Printer: Hej', correct: false, explain: 'For at få "Hej" skal du slå op med nøglen "content".' },
+      { text: 'Udskriver: Hej', correct: false, explain: 'For at få "Hej" skal du slå op med nøglen "content".' },
+    ]
+  });
+
+  renderQuiz(document.getElementById('quiz-5'), {
+    question: 'Hvad udskriver løkken?<pre><code>priser = {"æble": 2, "kiwi": 3}\nfor x in priser:\n    print(x)</code></pre>',
+    options: [
+      { text: 'Kun værdierne', correct: false, explain: 'En for-løkke over en dict giver nøglerne. Værdierne får du med priser[x] eller .values().' },
+      { text: 'Kun nøglerne', correct: true, explain: 'for x in priser gennemløber nøglerne, én ad gangen.' },
+      { text: 'Alle parrene', correct: false, explain: 'Parrene får du kun med .items(). Uden den giver løkken bare nøglerne.' },
+    ]
+  });
+
+  renderQuiz(document.getElementById('quiz-6'), {
+    question: 'Hvad udskrives?<pre><code>d = {"a": 1, "b": 2}\nv = d.pop("a")\nprint(v, d)</code></pre>',
+    options: [
+      { text: "1 {'b': 2}", correct: true, explain: '.pop() fjerner nøglen "a" fra d og returnerer dens værdi, 1.' },
+      { text: "a {'b': 2}", correct: false, explain: '.pop() returnerer værdien, ikke nøglen.' },
+      { text: "1 {'a': 1}", correct: false, explain: 'Det er "a", der fjernes. Tilbage i d er kun "b".' },
     ]
   });
 </script>

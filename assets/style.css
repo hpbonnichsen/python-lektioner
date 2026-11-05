@@ -261,3 +261,21 @@ pre code {
   .nav-links, .ask-agent, .quiz-block { display: none; }
   a { color: inherit; }
 }
+
+/* --- Compact reference tables --- */
+.ref-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-family: var(--sans);
+  font-size: 0.9rem;
+  margin: 0.8em 0 1.4em;
+}
+.ref-table th, .ref-table td {
+  text-align: left;
+  padding: 7px 10px;
+  border-bottom: 1px solid var(--border);
+  vertical-align: top;
+}
+.ref-table th { font-weight: 600; color: var(--text-muted); font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.04em; }
+.ref-table td code { white-space: nowrap; }
+@media print { .ref-table { break-inside: avoid; } }
