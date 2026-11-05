@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="da">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lektion 6: Dictionaries</title>
+<link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+<div class="page">
+  <p class="kicker">Lektion 6</p>
+  <h1>Dictionaries — at slå op med et navn</h1>
+
+  <p>
+    En variabel gemmer én værdi under ét navn. En <strong>dictionary</strong> (kort: <em>dict</em>) gemmer
+    <em>mange</em> værdier, hver under sit eget navn — en <strong>nøgle</strong>. Du slår op med nøglen og får
+    <strong>værdien</strong> tilbage, ligesom i en ordbog: slå "hej" op, få forklaringen.
+  </p>
+
+  <div class="callout">
+    <strong>Hvorfor det her betyder noget:</strong> Hver eneste besked, du sender til Claude, er en dict.
+    Sådan ser en besked ud i
+    <a href="https://platform.claude.com/docs/en/api/messages">Anthropics API-dokumentation</a>:
+    <pre><code>{"role": "user", "content": "Hello, Claude"}</code></pre>
+    To nøgler: <code>"role"</code> (hvem taler) og <code>"content"</code> (hvad siges der). Når du kan bygge og læse
+    den slags, kan du tale Claudes sprog.
+  </div>
+
+  <div class="source">
+    <span class="label">Primær kilde til denne lektion</span>
+    <a href="https://automatetheboringstuff.com/3e/chapter7.html">Automate the Boring Stuff — Kapitel 7: "Dictionaries and Structuring Data"</a>
+    af Al Sweigart. Læs afsnittet "The Dictionary Data Type" og "Checking Whether a Key Exists". Til præcise opslag:
+    <a href="https://docs.python.org/3/tutorial/datastructures.html#dictionaries">Python-tutorialen, afsnit 5.5</a>.
+  </div>
+
+  <h2>1. Opret og slå op</h2>
+  <pre><code>svar = {"hej": "Hej med dig!", "farvel": "Vi ses!"}
+
+print(svar["hej"])      # Hej med dig!</code></pre>
+  <p>
+    Krøllede parenteser <code>{}</code> laver en dict. Hvert par skrives <code>nøgle: værdi</code>, adskilt med komma.
+    Du slår op med firkantede parenteser og <em>nøglen</em>: <code>svar["hej"]</code>. Nøglen skal matche præcist —
+    <code>"Hej"</code> og <code>"hej"</code> er to forskellige nøgler.
+  </p>
+
+  <h2>2. Tilføj eller ændr</h2>
+  <pre><code>svar["tak"] = "Selv tak!"     # ny nøgle → tilføjes
+svar["hej"] = "Goddag!"       # findes allerede → overskrives
+print(svar)</code></pre>
+  <p>
+    Samme syntaks til begge dele — præcis som med en variabel: findes nøglen ikke, oprettes den; findes den,
+    glemmes den gamle værdi. En nøgle kan kun findes én gang i samme dict. Bemærk, at Python selv printer
+    dicts med enkelte anførselstegn: <code>{'hej': 'Goddag!', ...}</code>.
+  </p>
+
+  <h2>3. Når nøglen ikke findes</h2>
+  <pre><code>print(svar["godnat"])
+# KeyError: 'godnat'</code></pre>
+  <p>
+    En manglende nøgle crasher programmet med en <code>KeyError</code>
+    (<a href="https://docs.python.org/3/tutorial/datastructures.html#dictionaries">Python-tutorialen</a>).
+    To måder at undgå det på:
+  </p>
+  <div class="sheet-row">
+    <pre><code>if x in svar:
+    print(svar[x])
+else:
+    print("Forstår ikke")</code></pre>
+    <pre><code>print(svar.get(x, "Forstår ikke"))</code></pre>
+  </div>
+  <p>
+    <code>in</code> giver en boolean: findes nøglen? <code>.get(nøgle, standard)</code> returnerer værdien, hvis nøglen
+    findes — ellers standardværdien. <code>in</code> og opslag virker kun på <em>nøglerne</em>, ikke på værdierne.
+  </p>
+
+  <h2>Tjek din forståelse</h2>
+  <p style="font-family: var(--sans); color: var(--text-muted); font-size: 0.9rem;">
+    Forudsig outputtet, før du klikker. Det sidste spørgsmål er det sværeste.
+  </p>
+  <div id="quiz-1"></div>
+  <div id="quiz-2"></div>
+  <div id="quiz-3"></div>
+  <div id="quiz-4"></div>
+
+  <h2>Din opgave</h2>
+
+  <div class="task">
+    <h3>Del A — en bot med faste svar</h3>
+    <p>
+      Lav <code>oevelser/svar_bot.py</code> med udgangspunkt i din echo-bot. Skift indholdet af
+      <code>lav_bot_svar(besked)</code> ud, så funktionen:
+    </p>
+    <ul>
+      <li>har en dict med mindst tre faste svar (fx <code>"hej"</code>, <code>"hvem er du"</code>, <code>"tak"</code>)</li>
+      <li>returnerer det faste svar, hvis beskeden er en nøgle i dict'en</li>
+      <li>ellers returnerer det gamle ekko: <code>"Bot: Du sagde: ..."</code></li>
+    </ul>
+    <p>Løkken, <code>"afslut"</code> og tælleren skal ikke ændres. Test både en kendt og en ukendt besked.</p>
+  </div>
+
+  <div class="task">
+    <h3>Del B — byg en besked i Claudes format</h3>
+    <p>
+      Skriv en funktion <code>lav_besked(rolle, tekst)</code>, der <em>returnerer</em> en dict med nøglerne
+      <code>"role"</code> og <code>"content"</code>. Flere parametre adskilles med komma; argumenterne fordeles
+      i samme rækkefølge.
+    </p>
+    <p>
+      Brug den i løkken: byg en besked med rollen <code>"user"</code> ud fra det, brugeren skrev, og print
+      <code>Du (user): ...</code> ved at slå op i den dict, du fik tilbage — ikke ved at bruge <code>x</code> direkte.
+    </p>
+  </div>
+
+  <div class="callout">
+    <strong>Fælde i del B:</strong> Et opslag inde i en f-streng skal bruge den <em>anden</em> slags anførselstegn
+    end f-strengen selv: <code>f"Du: {besked['content']}"</code>. Det er sikrest at gøre det sådan, også selvom nye
+    Python-versioner tillader samme slags.
+  </div>
+
+  <p class="sheet-meta">
+    Opslag: <a href="../reference/dictionaries.html">dictionaries på én side</a> ·
+    <a href="../reference/grundlaeggende-python.html">opsummering af lektion 1–5</a> ·
+    <a href="../reference/glossary.html">ordliste</a>
+  </p>
+
+  <p class="ask-agent">
+    Sidder du fast, eller er noget uklart? Spørg din AI-underviser — vis gerne din kode, så finder vi præcis
+    det sted, hvor tråden tabes.
+  </p>
+
+  <div class="nav-links">
+    <span><a href="0005-opsamling.html">← Forrige: opsamling</a></span>
+    <span>Næste: lister — samtalens hukommelse</span>
+  </div>
+</div>
+
+<script src="../assets/quiz.js"></script>
+<script>
+  renderQuiz(document.getElementById('quiz-1'), {
+    question: 'Hvad printes?<pre><code>svar = {"hej": "Hej med dig!", "farvel": "Vi ses!"}\nprint(svar["farvel"])</code></pre>',
+    options: [
+      { text: 'farvel', correct: false, explain: 'Opslaget giver værdien, der hører til nøglen — ikke nøglen selv.' },
+      { text: 'Vi ses!', correct: true, explain: 'Nøglen "farvel" peger på værdien "Vi ses!".' },
+      { text: 'KeyError', correct: false, explain: '"farvel" findes som nøgle i dict\'en, så opslaget lykkes.' },
+    ]
+  });
+
+  renderQuiz(document.getElementById('quiz-2'), {
+    question: 'Hvad printes?<pre><code>alder = {"Anna": 27}\nalder["Bo"] = 31\nalder["Anna"] = 28\nprint(alder)</code></pre>',
+    options: [
+      { text: "{'Anna': 27, 'Bo': 31}", correct: false, explain: 'Den sidste tildeling overskriver Annas værdi — 27 er glemt.' },
+      { text: "{'Bo': 31, 'Anna': 28}", correct: false, explain: 'At ændre en værdi flytter ikke nøglen. "Anna" beholder sin plads forrest.' },
+      { text: "{'Anna': 28, 'Bo': 31}", correct: true, explain: '"Bo" tilføjes, og "Anna" overskrives på sin eksisterende plads.' },
+    ]
+  });
+
+  renderQuiz(document.getElementById('quiz-3'), {
+    question: '<strong>Brugeren taster "Hej" (med stort H).</strong> Hvad printes?<pre><code>svar = {"hej": "Hej med dig!"}\nx = input("Du: ")\nprint(svar.get(x, "Forstår ikke"))</code></pre>',
+    options: [
+      { text: 'Hej med dig!', correct: false, explain: 'Nøgler skal matche præcist. "Hej" og "hej" er to forskellige nøgler.' },
+      { text: 'KeyError: Hej', correct: false, explain: '.get() crasher aldrig på en manglende nøgle — den giver standardværdien.' },
+      { text: 'Forstår ikke', correct: true, explain: '"Hej" findes ikke som nøgle, så .get() returnerer standardværdien.' },
+    ]
+  });
+
+  renderQuiz(document.getElementById('quiz-4'), {
+    question: 'Hvad sker der?<pre><code>besked = {"role": "user", "content": "Hej"}\nprint(besked["user"])</code></pre>',
+    options: [
+      { text: 'Printer: user', correct: false, explain: '"user" er en værdi, ikke en nøgle. Opslag virker kun med nøgler — prøv besked["role"].' },
+      { text: 'KeyError: user', correct: true, explain: 'Nøglerne er "role" og "content". "user" er en værdi, så opslaget fejler.' },
+      { text: 'Printer: Hej', correct: false, explain: 'For at få "Hej" skal du slå op med nøglen "content".' },
+    ]
+  });
+</script>
+</body>
+</html>

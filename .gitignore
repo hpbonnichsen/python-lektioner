@@ -1,0 +1,7 @@
+# Ignorér alt i roden ...
+/*
+# ... undtagen disse
+!/.gitignore
+!/lessons/
+!/reference/
+!/assets/

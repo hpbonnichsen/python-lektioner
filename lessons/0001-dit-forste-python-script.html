@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="da">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lektion 1: Dit første Python-script</title>
+<link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+<div class="page">
+  <p class="kicker">Lektion 1</p>
+  <h1>Dit første Python-script</h1>
+
+  <p>
+    Du kender allerede begreber som variable og funktioner i teorien. Denne lektion handler ikke om at forklare dem igen —
+    den handler om at få dig til fysisk at skrive og køre Python-kode for første gang, så den grundlæggende arbejdsgang
+    (skriv → kør → læs resultatet) sidder i fingrene.
+  </p>
+
+  <div class="callout">
+    <strong>Hvorfor det her betyder noget:</strong> Alt du bygger senere — inklusiv den AI-chatbot du gerne vil lave —
+    starter med præcis denne cyklus: skrive et script, køre det, og læse hvad Python siger tilbage.
+  </div>
+
+  <div class="source">
+    <span class="label">Primær kilde til denne lektion</span>
+    <a href="https://automatetheboringstuff.com/3e/chapter1.html" target="_blank" rel="noopener">
+      Automate the Boring Stuff — Kapitel 1: "Python Basics"</a> af Al Sweigart (gratis, CC-licens).
+    Læs afsnittene om værdier, variable og <code>print()</code> for en grundigere gennemgang end denne lektion giver.
+  </div>
+
+  <h2>1. Et script er bare en tekstfil</h2>
+  <p>
+    Et Python-script er en almindelig tekstfil, der ender på <code>.py</code>. Når du kører den med kommandoen
+    <code>python3 mit_script.py</code>, læser Python-<strong>fortolkeren</strong> filen fra top til bund og udfører hver linje.
+  </p>
+
+  <h2>2. <code>print()</code> — at få Python til at sige noget</h2>
+  <p>Det mindste meningsfulde Python-program er én linje:</p>
+  <pre><code>print("Hej, verden!")</code></pre>
+  <p>Kør den, og terminalen viser <code>Hej, verden!</code>. Det er hele arbejdsgangen.</p>
+
+  <h2>3. Variable — at gemme en værdi under et navn</h2>
+  <p>En variabel er et navn der peger på en værdi. Ingen deklaration, ingen typer at skrive — bare:</p>
+  <pre><code>navn = "Anna"
+alder = 27
+print(navn)
+print(alder)</code></pre>
+  <p>
+    <code>navn</code> peger nu på strengen <code>"Anna"</code>, og <code>alder</code> peger på heltallet <code>27</code>.
+    Du kan til enhver tid give navnet en ny værdi — den gamle værdi bliver bare glemt.
+  </p>
+
+  <h2>4. F-strenge — at flette variable ind i tekst</h2>
+  <p>Det bliver hurtigt besværligt at sammensætte tekst og variable med <code>+</code>. Løsningen er en f-streng:</p>
+  <pre><code>navn = "Anna"
+alder = 27
+print(f"{navn} er {alder} år gammel")</code></pre>
+  <p>Output: <code>Anna er 27 år gammel</code>. Bogstavet <code>f</code> foran anførselstegnet er det, der aktiverer <code>{}</code>-substitutionen.</p>
+
+  <h2>Tjek din forståelse</h2>
+  <p style="font-family: var(--sans); color: var(--text-muted); font-size: 0.9rem;">
+    Forudsig outputtet, før du klikker. Ingen straf for at gætte forkert — det er hele pointen med øvelsen.
+  </p>
+
+  <div id="quiz-1"></div>
+  <div id="quiz-2"></div>
+
+  <div class="task">
+    <h3>Din opgave</h3>
+    <p>Åbn en terminal, opret en fil kaldet <code>hilsen.py</code>, og skriv et script der:</p>
+    <ol>
+      <li>Gemmer dit navn i en variabel</li>
+      <li>Gemmer dit studieår eller en anden tilfældig værdi i en anden variabel</li>
+      <li>Bruger en f-streng til at printe en hel sætning med begge variable</li>
+    </ol>
+    <p>Kør det med <code>python3 hilsen.py</code>. Virker det ikke første gang, så læs fejlmeddelelsen (den kaldes en <em>traceback</em>) — den peger på linjenummeret.</p>
+  </div>
+
+  <h2>Ny i ordlisten</h2>
+  <p>
+    Se <a href="../reference/glossary.html">Python-ordlisten</a> for præcise definitioner af: script, fortolker, variabel,
+    streng, heltal, f-streng, syntaksfejl.
+  </p>
+
+  <p class="ask-agent">
+    Sad du fast, eller virker noget uklart? Spørg din AI-underviser med det samme — det er præcis det, jeg er her for.
+  </p>
+
+  <div class="nav-links">
+    <span>← Dette er den første lektion</span>
+    <span><a href="0002-input-og-betingelser.html">Næste: input og betingelser →</a></span>
+  </div>
+</div>
+
+<script src="../assets/quiz.js"></script>
+<script>
+  renderQuiz(document.getElementById('quiz-1'), {
+    question: 'Hvad printer dette script?<pre><code>by = "Aarhus"\nprint(f"Jeg bor i {by}")</code></pre>',
+    options: [
+      { text: 'Jeg bor i Aarhus', correct: true, explain: 'f-strengen erstatter {by} med variablens værdi.' },
+      { text: 'Jeg bor i by', correct: false, explain: '{by} bliver erstattet med variablens VÆRDI, ikke navnet.' },
+      { text: 'Jeg bor i "Aarhus"', correct: false, explain: 'Anførselstegnene hører til koden, ikke til selve teksten der printes.' },
+    ]
+  });
+
+  renderQuiz(document.getElementById('quiz-2'), {
+    question: 'Hvad printer dette script?<pre><code>alder = 20\nalder = 21\nprint(alder)</code></pre>',
+    options: [
+      { text: '20', correct: false, explain: 'Den anden linje overskriver værdien — den første værdi er glemt.' },
+      { text: '21', correct: true, explain: 'Den anden tildeling overskriver den første. Kun sidste værdi huskes.' },
+      { text: '2021', correct: false, explain: 'Python samler ikke tallene sammen — variablen peger kun på én værdi ad gangen.' },
+    ]
+  });
+</script>
+</body>
+</html>

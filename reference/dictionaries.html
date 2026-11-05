@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="da">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dictionaries på én side</title>
+<link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+<div class="page">
+  <p class="kicker">Reference · lektion 6</p>
+  <h1>Dictionaries på én side</h1>
+  <p class="sheet-meta">
+    En dict gemmer par af <strong>nøgle → værdi</strong>. Du slår op med nøglen.
+    Kilder: <a href="https://automatetheboringstuff.com/3e/chapter7.html">ATBS kap. 7</a> ·
+    <a href="https://docs.python.org/3/tutorial/datastructures.html#dictionaries">Python-tutorial 5.5</a>
+  </p>
+
+  <h2>Syntaks</h2>
+  <div class="sheet-row">
+    <pre><code>d = {"hej": "Hej!", "tak": "Selv tak"}</code></pre>
+    <p>Opret: <code>{}</code>, par som <code>nøgle: værdi</code>, komma imellem.</p>
+  </div>
+  <div class="sheet-row">
+    <pre><code>d["hej"]</code></pre>
+    <p>Slå op. Manglende nøgle → <code>KeyError</code>.</p>
+  </div>
+  <div class="sheet-row">
+    <pre><code>d["ny"] = "værdi"</code></pre>
+    <p>Tilføj (ny nøgle) eller overskriv (eksisterende nøgle). Samme syntaks.</p>
+  </div>
+  <div class="sheet-row">
+    <pre><code>"hej" in d</code></pre>
+    <p><code>True</code>, hvis nøglen findes. Tjekker kun nøgler, ikke værdier.</p>
+  </div>
+  <div class="sheet-row">
+    <pre><code>d.get("x", "standard")</code></pre>
+    <p>Værdien, hvis nøglen findes — ellers standardværdien. Crasher aldrig.</p>
+  </div>
+
+  <h2>Claudes beskedformat</h2>
+  <pre><code>{"role": "user", "content": "Hello, Claude"}</code></pre>
+  <p class="sheet-meta">
+    <code>"role"</code> er <code>"user"</code> eller <code>"assistant"</code>; <code>"content"</code> er teksten.
+    <a href="https://platform.claude.com/docs/en/api/messages">Anthropic: Messages API</a>
+  </p>
+
+  <h2>Faldgruber</h2>
+  <ul class="pitfall-list">
+    <li><strong>Nøgler matcher præcist.</strong> <code>"Hej"</code> ≠ <code>"hej"</code>.</li>
+    <li><strong>Slå op med nøglen, ikke værdien.</strong>
+      <span class="wrong">besked["user"]</span> → <span class="right">besked["role"]</span></li>
+    <li><strong>Anførselstegn i f-strenge.</strong>
+      <span class="right">f"{besked['content']}"</span> — brug den anden slags inde i <code>{}</code>.</li>
+  </ul>
+
+  <div class="nav-links">
+    <span><a href="../lessons/0006-dictionaries.html">← Lektion 6</a></span>
+    <span><a href="grundlaeggende-python.html">Opsummering 1–5 →</a></span>
+  </div>
+</div>
+</body>
+</html>

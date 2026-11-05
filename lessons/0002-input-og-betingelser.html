@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="da">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lektion 2: Input og betingelser</title>
+<link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+<div class="page">
+  <p class="kicker">Lektion 2</p>
+  <h1>Input og betingelser</h1>
+
+  <p>
+    I lektion 1 fik du Python til at <em>sige</em> noget. Nu skal den <em>lytte</em> — og reagere forskelligt afhængigt af
+    hvad den hører. Det er præcis den mekanik en chatbot er bygget på: læs input, vurdér det, svar forskelligt alt efter hvad der kom ind.
+  </p>
+
+  <div class="callout">
+    <strong>Hvorfor det her betyder noget:</strong> <code>input()</code> + <code>if/elif/else</code> er kernen i enhver
+    interaktiv kommandolinje-chatbot. Uden betingelser kan et program kun gøre præcis én ting, uanset hvad brugeren skriver.
+  </div>
+
+  <div class="source">
+    <span class="label">Primær kilde til denne lektion</span>
+    <a href="https://automatetheboringstuff.com/3e/chapter2.html" target="_blank" rel="noopener">
+      Automate the Boring Stuff — Kapitel 2: "Flow Control"</a> af Al Sweigart dækker booleans, sammenligningsoperatorer og
+    if/elif/else i dybden. <code>input()</code> introduceres kort i
+    <a href="https://automatetheboringstuff.com/3e/chapter1.html" target="_blank" rel="noopener">Kapitel 1</a>.
+  </div>
+
+  <h2>1. <code>input()</code> — at lytte efter brugeren</h2>
+  <pre><code>navn = input("Hvad hedder du? ")
+print(f"Hej, {navn}!")</code></pre>
+  <p>
+    Scriptet stopper og venter, indtil brugeren skriver noget og trykker Enter. Det, der bliver skrevet, gemmes i
+    <code>navn</code> — <strong>altid som en streng</strong>, selv hvis brugeren taster tal.
+  </p>
+  <div class="callout">
+    <strong>Fælde:</strong> <code>alder = input("Alder: ")</code> gemmer <code>"25"</code> (en streng), ikke <code>25</code>
+    (et heltal). Vil du regne med tallet, skal du konvertere: <code>alder = int(input("Alder: "))</code>.
+  </div>
+
+  <h2>2. Sammenligningsoperatorer — spørgsmål med ja/nej-svar</h2>
+  <p>Disse giver altid en <strong>boolean</strong>: enten <code>True</code> eller <code>False</code>.</p>
+  <pre><code>>>> 5 > 3
+True
+>>> 5 == 3
+False
+>>> 5 != 3
+True</code></pre>
+  <p><code>==</code> sammenligner to værdier. Ét enkelt <code>=</code> tildeler en værdi til en variabel — det er ikke det samme, og at forveksle dem er en af de mest almindelige begynderfejl.</p>
+
+  <h2>3. <code>if</code> / <code>elif</code> / <code>else</code> — at reagere forskelligt</h2>
+  <pre><code>alder = int(input("Hvor gammel er du? "))
+
+if alder < 18:
+    print("Du er mindreårig.")
+elif alder < 65:
+    print("Du er voksen.")
+else:
+    print("Du er senior.")</code></pre>
+  <p>
+    Python tjekker betingelserne <strong>i rækkefølge</strong> og kører kun den første blok, hvis betingelse er sand — resten
+    springes over. Bemærk indrykningen (4 mellemrum): det er sådan Python ved, hvilke linjer der hører til hvilken blok.
+    Glemmer du kolon (<code>:</code>) eller indrykning, får du en syntaksfejl.
+  </p>
+
+  <h2>Tjek din forståelse</h2>
+  <p style="font-family: var(--sans); color: var(--text-muted); font-size: 0.9rem;">
+    Forudsig outputtet, før du klikker.
+  </p>
+
+  <div id="quiz-1"></div>
+  <div id="quiz-2"></div>
+
+  <div class="task">
+    <h3>Din opgave</h3>
+    <p>Udvid din <code>oevelser/</code>-mappe med en fil <code>alder_tjek.py</code>, der:</p>
+    <ol>
+      <li>Spørger brugeren om deres alder med <code>input()</code></li>
+      <li>Konverterer svaret til et heltal med <code>int()</code></li>
+      <li>Bruger <code>if</code> / <code>elif</code> / <code>else</code> til at printe forskellige beskeder for: under 18, 18-64, og 65+</li>
+    </ol>
+    <p>Kør scriptet flere gange med forskellige aldre, så du ser alle tre grene blive ramt mindst én gang.</p>
+  </div>
+
+  <h2>Nyt i ordlisten</h2>
+  <p>
+    Se <a href="../reference/glossary.html">Python-ordlisten</a> for: <code>input()</code>, boolean, sammenligningsoperator,
+    if/elif/else, indrykning.
+  </p>
+
+  <p class="ask-agent">
+    Sad du fast, eller virker noget uklart? Spørg din AI-underviser med det samme.
+  </p>
+
+  <div class="nav-links">
+    <span><a href="0001-dit-forste-python-script.html">← Forrige: dit første script</a></span>
+    <span><a href="0003-while-loekker.html">Næste: løkker →</a></span>
+  </div>
+</div>
+
+<script src="../assets/quiz.js"></script>
+<script>
+  renderQuiz(document.getElementById('quiz-1'), {
+    question: '<strong>Brugeren taster <code>7</code> ved dette script.</strong> Hvad printes?<pre><code>tal = input("Tast et tal: ")\nprint(tal == 7)</code></pre>',
+    options: [
+      { text: 'True', correct: false, explain: 'input() returnerer strengen "7", ikke heltallet 7 — og "7" == 7 er False.' },
+      { text: 'False', correct: true, explain: 'input() giver altid en streng. "7" (streng) er ikke det samme som 7 (heltal) for Python.' },
+      { text: 'Fejl (crash)', correct: false, explain: 'At sammenligne en streng med et heltal giver ikke en fejl — bare False.' },
+    ]
+  });
+
+  renderQuiz(document.getElementById('quiz-2'), {
+    question: 'Hvad printer dette script?<pre><code>point = 40\n\nif point < 50:\n    print("Bestaaet")\nelif point < 90:\n    print("Godt")\nelse:\n    print("Fremragende")</code></pre>',
+    options: [
+      { text: 'Bestaaet', correct: true, explain: 'Første betingelse (40 < 50) er sand, så kun den blok køres — resten springes over.' },
+      { text: 'Godt', correct: false, explain: 'Python stopper ved den FØRSTE sande betingelse — den tjekker ikke resten bagefter.' },
+      { text: 'Bestaaet og Godt', correct: false, explain: 'Kun én gren i en if/elif/else-kæde kan nogensinde køre.' },
+    ]
+  });
+</script>
+</body>
+</html>

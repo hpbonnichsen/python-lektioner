@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="da">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lektion 3: While-løkker</title>
+<link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+<div class="page">
+  <p class="kicker">Lektion 3</p>
+  <h1>While-løkker — det sidste stykke af en chatbot</h1>
+
+  <p>
+    Indtil nu har dine scripts spurgt <em>én gang</em> og sluttet. En chatbot skal blive ved med at lytte, svare, lytte,
+    svare — indtil brugeren aktivt vælger at stoppe. Den mekanik hedder en <strong>while-løkke</strong>, og med den har du
+    faktisk alle byggestenene til et fungerende chat-skelet.
+  </p>
+
+  <div class="callout">
+    <strong>Hvorfor det her betyder noget:</strong> <code>while True:</code> + <code>input()</code> + <code>if/break</code>
+    er bogstaveligt talt strukturen i enhver kommandolinje-chatbot, inklusiv den du gerne vil bygge med Claudes API.
+  </div>
+
+  <div class="source">
+    <span class="label">Primær kilde til denne lektion</span>
+    <a href="https://automatetheboringstuff.com/3e/chapter3.html" target="_blank" rel="noopener">
+      Automate the Boring Stuff — Kapitel 3: "Loops"</a> af Al Sweigart. Læs afsnittene "while Loop Statements" og
+    "break Statements" for den fulde gennemgang.
+  </div>
+
+  <h2>1. Den grundlæggende while-løkke</h2>
+  <pre><code>tal = 1
+while tal <= 3:
+    print(tal)
+    tal = tal + 1</code></pre>
+  <p>
+    Python tjekker betingelsen (<code>tal <= 3</code>) <strong>før</strong> hver gentagelse. Er den sand, køres blokken,
+    og Python tjekker igen. Er den falsk, springes blokken over, og programmet fortsætter efter løkken.
+  </p>
+
+  <div class="callout">
+    <strong>Fælde:</strong> Glemmer du <code>tal = tal + 1</code>, forbliver betingelsen sand for evigt, og programmet
+    hænger i en <em>uendelig løkke</em>. Sker det for dig i terminalen, kan du altid stoppe det med <code>Ctrl+C</code>.
+  </div>
+
+  <h2>2. <code>while True:</code> og <code>break</code> — løkken der stopper sig selv indefra</h2>
+  <p>
+    Nogle gange ved man ikke på forhånd, hvor mange gange en løkke skal køre — man vil bare blive ved, indtil noget
+    bestemt sker. Løsningen er en løkke der altid er sand, kombineret med et <code>break</code> der afbryder den indefra:
+  </p>
+  <pre><code>while True:
+    besked = input("Du: ")
+    if besked == "afslut":
+        break
+    print(f"Bot: Du sagde '{besked}'")
+
+print("Farvel!")</code></pre>
+  <p>
+    Dette er selve skelettet til en chatbot: løkken kører for evigt, indtil <code>if</code>-betingelsen rammer og
+    <code>break</code> springer ud af løkken. Alt efter løkken (<code>print("Farvel!")</code>) kører først, når den er forladt.
+  </p>
+
+  <h2>Tjek din forståelse</h2>
+  <p style="font-family: var(--sans); color: var(--text-muted); font-size: 0.9rem;">
+    Forudsig outputtet, før du klikker.
+  </p>
+
+  <div id="quiz-1"></div>
+  <div id="quiz-2"></div>
+
+  <div class="task">
+    <h3>Din opgave</h3>
+    <p>
+      Byg <code>oevelser/echo_bot.py</code> — men uden at kigge på eksemplet ovenfor. Kombinér chat-loopet med
+      tælle-mønsteret fra afsnit 1 (<code>tal = tal + 1</code>). Botten skal:
+    </p>
+    <ol>
+      <li>Køre en <code>while True:</code>-løkke</li>
+      <li>Spørge brugeren om en besked med <code>input("Du: ")</code></li>
+      <li>Hvis beskeden er <code>"afslut"</code>, stoppe løkken med <code>break</code></li>
+      <li>Ellers printe beskeden tilbage, <strong>og tælle</strong> hvor mange beskeder brugeren har skrevet (en variabel der starter på <code>0</code> og tælles op for hver besked — <em>ikke</em> for "afslut")</li>
+      <li>Efter løkken: printe <code>"Farvel! Du sendte X beskeder."</code>, hvor X er antallet</li>
+    </ol>
+    <p>Test at tælleren rammer det rigtige antal, uanset om du skriver 1, 3 eller 5 beskeder før du afslutter.</p>
+  </div>
+
+  <h2>Nyt i ordlisten</h2>
+  <p>
+    Se <a href="../reference/glossary.html">Python-ordlisten</a> for: while-løkke, <code>break</code>, uendelig løkke.
+  </p>
+
+  <p class="ask-agent">
+    Sad du fast, eller virker noget uklart? Spørg din AI-underviser med det samme.
+  </p>
+
+  <div class="nav-links">
+    <span><a href="0002-input-og-betingelser.html">← Forrige: input og betingelser</a></span>
+    <span><a href="0004-funktioner.html">Næste: funktioner →</a></span>
+  </div>
+</div>
+
+<script src="../assets/quiz.js"></script>
+<script>
+  renderQuiz(document.getElementById('quiz-1'), {
+    question: 'Hvad printer dette script?<pre><code>n = 3\nwhile n > 0:\n    print(n)\n    n = n - 1</code></pre>',
+    options: [
+      { text: '3 2 1', correct: true, explain: 'Løkken kører mens n > 0, og tæller ned: 3, 2, 1. Ved n=0 stopper den.' },
+      { text: '3 2 1 0', correct: false, explain: 'Betingelsen tjekkes FØR hver gentagelse — ved n=0 er 0 > 0 falsk, så blokken køres aldrig med n=0.' },
+      { text: 'Uendelig løkke', correct: false, explain: 'n = n - 1 sørger for at n til sidst rammer 0, så betingelsen bliver falsk og løkken stopper.' },
+    ]
+  });
+
+  renderQuiz(document.getElementById('quiz-2'), {
+    question: '<strong>Brugeren taster "afslut" med det samme.</strong> Hvad printes?<pre><code>while True:\n    x = input("Du: ")\n    if x == "afslut":\n        break\n    print(f"Bot: {x}")\nprint("Farvel!")</code></pre>',
+    options: [
+      { text: 'Kun "Farvel!"', correct: true, explain: 'break rammer straks, så print(f"Bot: {x}") nås aldrig — kun linjen efter løkken køres.' },
+      { text: 'Bot: afslut', correct: false, explain: 'break afbryder løkken FØR print-linjen nås, fordi if-tjekket kommer først.' },
+      { text: 'Uendelig løkke', correct: false, explain: 'break stopper løkken øjeblikkeligt, uanset at while True normalt aldrig stopper af sig selv.' },
+    ]
+  });
+</script>
+</body>
+</html>

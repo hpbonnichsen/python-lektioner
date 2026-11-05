@@ -1,0 +1,263 @@
+/* Shared stylesheet for all lessons and reference docs in this workspace. */
+
+:root {
+  --bg: #fbfaf7;
+  --bg-raised: #ffffff;
+  --text: #1c1b19;
+  --text-muted: #5a564e;
+  --accent: #8a4f2d;
+  --accent-soft: #f1e3d3;
+  --border: #e4ddd0;
+  --code-bg: #f3ede1;
+  --success: #3f7d4f;
+  --success-bg: #e6f0e6;
+  --error: #a4432f;
+  --error-bg: #f7e6e1;
+  --serif: "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, serif;
+  --sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+  --mono: "SF Mono", "Fira Code", Consolas, "Courier New", monospace;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #1a1816;
+    --bg-raised: #221f1c;
+    --text: #ece7dd;
+    --text-muted: #b3aa9c;
+    --accent: #e0a679;
+    --accent-soft: #3a2c20;
+    --border: #3a352d;
+    --code-bg: #262220;
+    --success: #7fbf8f;
+    --success-bg: #1f2e22;
+    --error: #e08a76;
+    --error-bg: #33211d;
+  }
+}
+
+:root[data-theme="dark"] {
+  --bg: #1a1816;
+  --bg-raised: #221f1c;
+  --text: #ece7dd;
+  --text-muted: #b3aa9c;
+  --accent: #e0a679;
+  --accent-soft: #3a2c20;
+  --border: #3a352d;
+  --code-bg: #262220;
+  --success: #7fbf8f;
+  --success-bg: #1f2e22;
+  --error: #e08a76;
+  --error-bg: #33211d;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--serif);
+  font-size: 19px;
+  line-height: 1.6;
+  margin: 0;
+  padding: 0 16px;
+}
+
+.page {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 48px 0 96px;
+}
+
+.kicker {
+  font-family: var(--sans);
+  font-size: 13px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin: 0 0 8px;
+}
+
+h1 {
+  font-size: 2rem;
+  line-height: 1.2;
+  margin: 0 0 24px;
+}
+
+h2 {
+  font-size: 1.3rem;
+  margin: 2.2em 0 0.6em;
+  border-bottom: 1px solid var(--border);
+  padding-bottom: 0.3em;
+}
+
+h3 {
+  font-size: 1.05rem;
+  margin: 1.6em 0 0.5em;
+  font-family: var(--sans);
+  font-weight: 600;
+}
+
+p { margin: 0 0 1em; }
+
+a { color: var(--accent); }
+a:hover { text-decoration: none; }
+
+code {
+  font-family: var(--mono);
+  background: var(--code-bg);
+  padding: 0.12em 0.35em;
+  border-radius: 4px;
+  font-size: 0.85em;
+}
+
+pre {
+  background: var(--code-bg);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 16px 18px;
+  overflow-x: auto;
+  font-size: 0.85em;
+}
+pre code {
+  background: none;
+  padding: 0;
+}
+
+.callout {
+  background: var(--bg-raised);
+  border: 1px solid var(--border);
+  border-left: 4px solid var(--accent);
+  border-radius: 6px;
+  padding: 14px 18px;
+  margin: 1.4em 0;
+  font-family: var(--sans);
+  font-size: 0.92rem;
+  color: var(--text-muted);
+}
+
+.callout strong { color: var(--text); }
+
+.source {
+  font-family: var(--sans);
+  font-size: 0.92rem;
+  background: var(--accent-soft);
+  border-radius: 8px;
+  padding: 14px 18px;
+  margin: 1.4em 0;
+}
+.source .label {
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  font-size: 0.72rem;
+  color: var(--text-muted);
+  display: block;
+  margin-bottom: 4px;
+}
+
+.task {
+  border: 1px dashed var(--accent);
+  border-radius: 8px;
+  padding: 16px 18px;
+  margin: 1.4em 0;
+  background: var(--bg-raised);
+}
+.task h3 { margin-top: 0; }
+
+.nav-links {
+  font-family: var(--sans);
+  font-size: 0.9rem;
+  display: flex;
+  justify-content: space-between;
+  margin-top: 3em;
+  padding-top: 1.2em;
+  border-top: 1px solid var(--border);
+  color: var(--text-muted);
+}
+
+.glossary-term {
+  border-bottom: 1px solid var(--border);
+  padding: 14px 0;
+}
+.glossary-term dt {
+  font-family: var(--sans);
+  font-weight: 600;
+  font-size: 1rem;
+}
+.glossary-term dd {
+  margin: 4px 0 0;
+  color: var(--text-muted);
+}
+
+.quiz-block {
+  font-family: var(--sans);
+  background: var(--bg-raised);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 18px 20px;
+  margin: 1.4em 0;
+}
+.quiz-question { font-weight: 600; margin: 0 0 12px; font-family: var(--serif); font-size: 1.05rem; }
+.quiz-options { display: flex; flex-direction: column; gap: 8px; }
+.quiz-option {
+  font-family: var(--mono);
+  font-size: 0.88rem;
+  text-align: left;
+  background: var(--code-bg);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 10px 14px;
+  cursor: pointer;
+  color: var(--text);
+}
+.quiz-option:hover:not(:disabled) { border-color: var(--accent); }
+.quiz-option:disabled { cursor: default; opacity: 0.8; }
+.quiz-correct { background: var(--success-bg) !important; border-color: var(--success) !important; }
+.quiz-incorrect { background: var(--error-bg) !important; border-color: var(--error) !important; }
+.quiz-feedback { margin-top: 12px; font-size: 0.9rem; padding: 10px 14px; border-radius: 6px; }
+.quiz-feedback-correct { background: var(--success-bg); color: var(--success); }
+.quiz-feedback-incorrect { background: var(--error-bg); color: var(--error); }
+
+.ask-agent {
+  font-family: var(--sans);
+  font-size: 0.88rem;
+  color: var(--text-muted);
+  text-align: center;
+  margin-top: 2.5em;
+}
+
+/* --- Reference sheets (cheat sheets) --- */
+.sheet-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 18px;
+  align-items: start;
+  margin: 0.6em 0 1.2em;
+}
+.sheet-row pre { margin: 0; }
+.sheet-row p { font-size: 0.92rem; margin: 0 0 0.6em; }
+@media (max-width: 640px) { .sheet-row { grid-template-columns: 1fr; } }
+
+.pitfall-list { font-family: var(--sans); font-size: 0.9rem; padding-left: 1.2em; }
+.pitfall-list li { margin-bottom: 0.7em; }
+.pitfall-list .wrong { color: var(--error); font-family: var(--mono); font-size: 0.85em; }
+.pitfall-list .right { color: var(--success); font-family: var(--mono); font-size: 0.85em; }
+
+.sheet-meta {
+  font-family: var(--sans);
+  font-size: 0.85rem;
+  color: var(--text-muted);
+}
+
+/* --- Print: lessons and reference docs should print cleanly --- */
+@media print {
+  :root {
+    --bg: #fff; --bg-raised: #fff; --text: #000; --text-muted: #333;
+    --code-bg: #f4f4f4; --border: #ccc;
+  }
+  body { font-size: 11pt; padding: 0; }
+  .page { max-width: none; padding: 0; }
+  h2 { break-after: avoid; }
+  pre, .sheet-row, .callout, .glossary-term, .pitfall-list li { break-inside: avoid; }
+  .nav-links, .ask-agent, .quiz-block { display: none; }
+  a { color: inherit; }
+}

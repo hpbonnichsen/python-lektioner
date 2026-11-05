@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="da">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Det har du lært: grundlæggende Python (lektion 1–5)</title>
+<link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+<div class="page">
+  <p class="kicker">Reference · opsummering af lektion 1–5</p>
+  <h1>Det har du lært indtil nu</h1>
+
+  <p>
+    Fem lektioner, ét samlet billede: du kan nu skrive et program, der <strong>husker</strong> værdier,
+    <strong>træffer valg</strong>, <strong>gentager</strong> sig selv og er <strong>delt op i funktioner</strong>.
+    Det er præcis de fire byggesten, en kommandolinje-chatbot består af. Denne side er til opslag og genlæsning —
+    ingen opgaver. Termerne følger <a href="glossary.html">ordlisten</a>.
+  </p>
+
+  <h2>1 · Arbejdsgangen</h2>
+  <div class="sheet-row">
+    <pre><code>python3 hilsen.py</code></pre>
+    <p>
+      Et <strong>script</strong> er en tekstfil, der ender på <code>.py</code>. Fortolkeren læser den fra top til bund.
+      Går noget galt, viser Python en <strong>traceback</strong> — læs den nederste linje først, og kig på linjenummeret.
+      <a href="../lessons/0001-dit-forste-python-script.html">Lektion 1</a>
+    </p>
+  </div>
+
+  <h2>2 · Variable, typer og f-strenge</h2>
+  <div class="sheet-row">
+    <pre><code>navn = "Anna"      # streng
+alder = 27         # heltal (int)
+alder = 28         # overskriver 27
+
+print(f"{navn} er {alder} år")</code></pre>
+    <p>
+      En <strong>variabel</strong> er et navn, der peger på én værdi ad gangen — en ny tildeling glemmer den gamle.
+      <code>f</code> foran anførselstegnet gør, at <code>{navn}</code> erstattes af variablens <em>værdi</em>.
+      <a href="https://automatetheboringstuff.com/3e/chapter1.html">ATBS kap. 1</a>
+    </p>
+  </div>
+
+  <h2>3 · input() og betingelser</h2>
+  <div class="sheet-row">
+    <pre><code>alder = int(input("Alder: "))
+
+if alder &lt; 18:
+    print("Mindreårig")
+elif alder &lt; 65:
+    print("Voksen")
+else:
+    print("Senior")</code></pre>
+    <p>
+      <code>input()</code> giver <em>altid</em> en streng — brug <code>int()</code> for at regne med svaret.
+      Sammenligninger (<code>==  !=  &lt;  &gt;  &lt;=  &gt;=</code>) giver en <strong>boolean</strong>.
+      Kun den <em>første</em> sande gren køres. Kolon og 4 mellemrums indrykning markerer blokken.
+      <a href="https://automatetheboringstuff.com/3e/chapter2.html">ATBS kap. 2</a>
+    </p>
+  </div>
+
+  <h2>4 · while-løkker og break</h2>
+  <div class="sheet-row">
+    <pre><code>tal = 1
+while tal &lt;= 3:
+    print(tal)
+    tal = tal + 1</code></pre>
+    <p>
+      Betingelsen tjekkes <em>før</em> hver gentagelse. Glemmer du at ændre <code>tal</code>, får du en
+      uendelig løkke — stop den med <code>Ctrl+C</code>.
+    </p>
+  </div>
+  <div class="sheet-row">
+    <pre><code>while True:
+    x = input("Du: ")
+    if x == "afslut":
+        break
+    print(f"Bot: {x}")
+print("Farvel!")</code></pre>
+    <p>
+      <code>while True:</code> kører for evigt, indtil et <code>break</code> springer ud. Koden efter løkken kører
+      først bagefter. Det er chatbottens skelet.
+      <a href="https://automatetheboringstuff.com/3e/chapter3.html">ATBS kap. 3</a>
+    </p>
+  </div>
+
+  <h2>5 · Akkumulator-mønstret</h2>
+  <div class="sheet-row">
+    <pre><code>n = 0              # FØR løkken
+sum = 0
+while ...:
+    n = n + 1      # tæller
+    sum = sum + x  # samler op</code></pre>
+    <p>
+      Samme mønster til at <em>tælle</em> og til at <em>lægge sammen</em>: start-værdi før løkken, og opdatér
+      <strong>den samme variabel</strong> inde i løkken. Navnet på venstre og højre side af <code>=</code> skal være ens.
+    </p>
+  </div>
+
+  <h2>6 · Funktioner, parametre og return</h2>
+  <div class="sheet-row">
+    <pre><code>def er_myndig(alder):      # alder = parameter
+    return alder &gt;= 18
+
+svar = er_myndig(int(input("Alder: ")))
+print(svar)                # True/False</code></pre>
+    <p>
+      <code>def</code> definerer — koden kører først, når funktionen <em>kaldes</em> med <code>()</code>.
+      <code>return</code> sender en værdi tilbage; <code>print()</code> viser den bare.
+      Uden <code>return</code> får du <code>None</code>.
+      <a href="https://automatetheboringstuff.com/3e/chapter4.html">ATBS kap. 4</a>
+    </p>
+  </div>
+
+  <h3>Parameter og argument (formel og aktuel parameter)</h3>
+  <div class="sheet-row">
+    <pre><code>def hils(navn):        # navn  = parameter
+    return f"Hej {navn}"   #   (formel parameter)
+
+hils("Anna")           # "Anna" = argument
+hils(fornavn)          #   (aktuel parameter)</code></pre>
+    <p>
+      <strong>Parameteren</strong> er pladsholderen i definitionen — et navn uden værdi, indtil funktionen kaldes.
+      <strong>Argumentet</strong> er den konkrete værdi, du sender med ved kaldet. Når funktionen kaldes, får
+      parameteren argumentets værdi: <code>navn = "Anna"</code>.
+      Argumentet kan være en værdi, en variabel eller et helt udtryk som <code>int(input(...))</code> —
+      det udregnes <em>først</em>, og så sendes resultatet ind.
+    </p>
+  </div>
+  <p class="sheet-meta">
+    Navnene: Pythons dokumentation og fejlbeskeder siger <em>parameter</em> og <em>argument</em>
+    (fx <code>missing 1 required positional argument</code>). Mange danske lærebøger siger i stedet
+    <em>formel parameter</em> og <em>aktuel parameter</em>. Det er de samme to ting.
+    <a href="https://docs.python.org/3/glossary.html#term-argument">Python-ordlisten: argument</a> ·
+    <a href="https://docs.python.org/3/glossary.html#term-parameter">parameter</a>
+  </p>
+  <div class="callout">
+    <strong>Scope i én sætning:</strong> variable og parametre inde i en funktion findes kun derinde. Skal værdien bruges
+    udenfor, så <code>return</code> den og gem den i en variabel ved kaldet. (Uddybes i en senere lektion.)
+  </div>
+
+  <h2>Det hele samlet: din echo-bot</h2>
+  <pre><code>def lav_bot_svar(besked):                 # funktion: én opgave, ingen print
+    return f"Bot: Du sagde: {besked}"
+
+n = 0                                     # akkumulator
+while True:                               # løkke
+    x = input("Du: ")                     # input
+    if x == "afslut":                     # betingelse
+        break
+    print(lav_bot_svar(x))                # kald + brug returværdien
+    n = n + 1
+print(f"Farvel! Du har sendt {n} beskeder.")   # f-streng</code></pre>
+  <p class="sheet-meta">
+    Når Claude API'et kommer ind, er det kun indholdet af <code>lav_bot_svar</code>, der skal skiftes ud — løkken
+    forbliver den samme.
+  </p>
+
+  <h2>Dine egne faldgruber</h2>
+  <p class="sheet-meta">Fejl du faktisk har ramt og rettet — dem er det værd at kigge efter først, når noget driller.</p>
+  <ul class="pitfall-list">
+    <li><strong>Tildeling vs. sammenligning.</strong>
+      <span class="wrong">if alder = 18:</span> → <span class="right">if alder == 18:</span></li>
+    <li><strong>Referere vs. kalde.</strong> Uden parenteser får du selve funktionen, ikke resultatet.
+      <span class="wrong">print(lav_bot_svar)</span> → <span class="right">print(lav_bot_svar(x))</span></li>
+    <li><strong>input() inde i en funktion, der allerede har en parameter.</strong> Funktionen skal bruge den værdi, den
+      får — spørg brugeren <em>ved kaldet</em>, ikke indeni.</li>
+    <li><strong>To navne i akkumulatoren.</strong>
+      <span class="wrong">samlet_sum = sum + tal</span> → <span class="right">sum = sum + tal</span></li>
+    <li><strong>print i stedet for return.</strong> Står der <code>None</code> i dit output, mangler en funktion sit
+      <code>return</code>.</li>
+    <li><strong>Streng vs. tal.</strong> <code>input()</code> giver <code>"7"</code>, ikke <code>7</code> —
+      og <code>"7" == 7</code> er <code>False</code>.</li>
+  </ul>
+
+  <h2>Hvad mangler før Claude-chatbotten?</h2>
+  <p>
+    Claude API'et modtager samtalen som en <strong>liste</strong> af beskeder, hvor hver besked er en lille
+    <strong>ordbog</strong> (dict) med en rolle og et indhold. Det er de to nye byggesten, der står for tur —
+    se <a href="https://docs.claude.com/en/docs/get-started">Anthropics kom-i-gang-guide</a> for, hvordan et kald ser ud.
+  </p>
+
+  <div class="source">
+    <span class="label">Primær kilde til genlæsning</span>
+    <a href="https://automatetheboringstuff.com/3e/">Automate the Boring Stuff with Python</a>, kapitel 1–4 af Al Sweigart
+    dækker alt på denne side i større dybde.
+  </div>
+
+  <p class="ask-agent">Er der et punkt her, der ikke føles helt klart? Spørg din AI-underviser — også om ting, du synes, du "burde" kunne.</p>
+
+  <div class="nav-links">
+    <span><a href="../lessons/0005-opsamling.html">← Lektion 5: opsamling</a></span>
+    <span><a href="glossary.html">Ordliste →</a></span>
+  </div>
+</div>
+</body>
+</html>

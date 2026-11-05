@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="da">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Python-ordliste</title>
+<link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+<div class="page">
+  <p class="kicker">Reference</p>
+  <h1>Python-ordliste</h1>
+  <p style="font-family: var(--sans); color: var(--text-muted); font-size: 0.92rem;">
+    Denne ordliste vokser efterhånden som nye lektioner introducerer nye begreber. Alle lektioner bruger termerne herfra konsekvent.
+  </p>
+
+  <dl>
+    <div class="glossary-term">
+      <dt>script</dt>
+      <dd>En tekstfil med Python-kode (endelse <code>.py</code>), som Python-fortolkeren kan køre fra top til bund.</dd>
+    </div>
+    <div class="glossary-term">
+      <dt>fortolker (interpreter)</dt>
+      <dd>Programmet <code>python3</code>, der læser din kode linje for linje og udfører den — i modsætning til sprog der skal "kompileres" til en separat fil først.</dd>
+    </div>
+    <div class="glossary-term">
+      <dt>variabel</dt>
+      <dd>Et navn der peger på en værdi i hukommelsen, fx <code>navn = "Anna"</code>. Værdien kan ændres senere ved at tildele noget nyt til samme navn.</dd>
+    </div>
+    <div class="glossary-term">
+      <dt>streng (string)</dt>
+      <dd>Tekstdata, altid omgivet af anførselstegn: <code>"hej"</code> eller <code>'hej'</code>.</dd>
+    </div>
+    <div class="glossary-term">
+      <dt>heltal (integer / <code>int</code>)</dt>
+      <dd>Et helt tal uden decimaler, fx <code>42</code>. Modsat en <code>float</code>, som har decimaler (<code>3.14</code>).</dd>
+    </div>
+    <div class="glossary-term">
+      <dt><code>print()</code></dt>
+      <dd>Indbygget funktion der skriver noget ud på skærmen (i terminalen).</dd>
+    </div>
+    <div class="glossary-term">
+      <dt>f-streng (f-string)</dt>
+      <dd>En streng med et <code>f</code> foran anførselstegnet, hvor <code>{variabel}</code> bliver erstattet med variablens værdi: <code>f"Hej {navn}"</code>.</dd>
+    </div>
+    <div class="glossary-term">
+      <dt>syntaksfejl (syntax error)</dt>
+      <dd>Fejl der opstår når koden ikke overholder Pythons grammatik (fx en manglende parentes). Python nægter at køre koden overhovedet, og viser en fejlmeddelelse (traceback) der peger på linjen.</dd>
+    </div>
+    <div class="glossary-term">
+      <dt>kommentar (comment)</dt>
+      <dd>Tekst efter et <code>#</code>, som Python ignorerer. Bruges til at forklare koden for mennesker, ikke maskinen.</dd>
+    </div>
+    <div class="glossary-term">
+      <dt><code>input()</code></dt>
+      <dd>Indbygget funktion der stopper scriptet og venter på, at brugeren skriver noget og trykker Enter. Returnerer altid en <strong>streng</strong> — selv hvis brugeren taster tal, skal du selv konvertere med <code>int()</code> eller <code>float()</code>.</dd>
+    </div>
+    <div class="glossary-term">
+      <dt>boolean</dt>
+      <dd>En datatype med kun to mulige værdier: <code>True</code> eller <code>False</code>. Resultatet af enhver sammenligning (fx <code>5 > 3</code>) er en boolean.</dd>
+    </div>
+    <div class="glossary-term">
+      <dt>sammenligningsoperator (comparison operator)</dt>
+      <dd>Symboler der sammenligner to værdier og giver en boolean: <code>==</code> (lig med), <code>!=</code> (ikke lig med), <code>&lt;</code>, <code>&gt;</code>, <code>&lt;=</code>, <code>&gt;=</code>. Bemærk: <code>==</code> sammenligner, mens ét <code>=</code> tildeler en værdi.</dd>
+    </div>
+    <div class="glossary-term">
+      <dt><code>if</code> / <code>elif</code> / <code>else</code></dt>
+      <dd>Kontrolstruktur der kører forskellige kodeblokke afhængigt af om en betingelse er <code>True</code>. Python tjekker betingelserne i rækkefølge og kører kun den <em>første</em> blok, hvis betingelse er sand.</dd>
+    </div>
+    <div class="glossary-term">
+      <dt>indrykning (indentation)</dt>
+      <dd>Python bruger indrykning (typisk 4 mellemrum) — ikke krøllede parenteser — til at markere hvilke linjer der hører til en <code>if</code>-blok, funktion osv. Forkert indrykning giver en syntaksfejl.</dd>
+    </div>
+    <div class="glossary-term">
+      <dt>while-løkke</dt>
+      <dd>Gentager en kodeblok, så længe en betingelse er <code>True</code>: <code>while betingelse:</code>. Betingelsen tjekkes igen for hver gentagelse — bliver den aldrig <code>False</code>, kører løkken for evigt.</dd>
+    </div>
+    <div class="glossary-term">
+      <dt><code>break</code></dt>
+      <dd>Afbryder en løkke øjeblikkeligt, uanset om løkkens betingelse stadig er sand. Bruges typisk inde i en <code>if</code> for at forlade løkken på et bestemt tidspunkt.</dd>
+    </div>
+    <div class="glossary-term">
+      <dt>uendelig løkke (infinite loop)</dt>
+      <dd>En løkke hvis betingelse aldrig bliver <code>False</code>, og som derfor aldrig stopper af sig selv. <code>while True:</code> er bevidst uendelig — den skal altid have et <code>break</code> et sted inde i sig for at kunne stoppe.</dd>
+    </div>
+    <div class="glossary-term">
+      <dt>funktion (function)</dt>
+      <dd>Et navngivet, genbrugeligt stykke kode defineret med <code>def navn(parametre):</code>. Kaldes med <code>navn(argumenter)</code>. Kan tage input (parametre) og give et resultat tilbage (<code>return</code>).</dd>
+    </div>
+    <div class="glossary-term">
+      <dt>parameter / argument</dt>
+      <dd>En parameter er navnet på en variabel i funktionens definition (<code>def hils(navn):</code>). Et argument er den konkrete værdi, du sender med, når du kalder funktionen (<code>hils("Anna")</code>). Ved kaldet får parameteren argumentets værdi.<br><em>Også kaldet:</em> formel parameter (= parameter) og aktuel parameter (= argument). Det er de samme to begreber. I dette kursus bruger vi parameter/argument, fordi det er de ord, Pythons fejlbeskeder bruger.</dd>
+    </div>
+    <div class="glossary-term">
+      <dt><code>return</code></dt>
+      <dd>Sender en værdi tilbage til det sted, funktionen blev kaldt fra, og afslutter funktionen med det samme. Ikke det samme som <code>print()</code>: <code>print()</code> viser noget på skærmen, <code>return</code> giver en værdi videre til koden der kaldte funktionen. En funktion uden <code>return</code> giver <code>None</code> tilbage.</dd>
+    </div>
+    <div class="glossary-term">
+      <dt>scope (rækkevidde)</dt>
+      <dd>En variabel defineret inde i en funktion (inklusiv dens parametre) findes kun derinde — den kan ikke bruges udenfor. Vil du bruge værdien udenfor, skal funktionen <code>return</code>e den, og du skal gemme resultatet i en variabel dér. Uddybes i en senere lektion.</dd>
+    </div>
+  </dl>
+
+  <p class="ask-agent">Uklart om en term? Spørg din AI-underviser direkte.</p>
+</div>
+</body>
+</html>

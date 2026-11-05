@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="da">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lektion 4: Funktioner</title>
+<link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+<div class="page">
+  <p class="kicker">Lektion 4</p>
+  <h1>Funktioner — at pakke logik ind i noget genbrugeligt</h1>
+
+  <p>
+    Din <code>echo_bot.py</code> gør allerede noget fornuftigt, men al logikken sidder i én lang blok inde i løkken.
+    Med funktioner kan du flytte "find ud af hvad botten skal svare" ud som sin egen navngivne, testbare enhed —
+    adskilt fra selve løkken, der bare spørger og printer.
+  </p>
+
+  <div class="callout">
+    <strong>Hvorfor det her betyder noget:</strong> Når du senere skal bytte din bots simple ekko-logik ud med et rigtigt
+    kald til Claudes API, vil du kun skulle ændre <em>indholdet</em> af én funktion — ikke rode i løkken der styrer samtalen.
+    Det er selve pointen med at strukturere kode i funktioner.
+  </div>
+
+  <div class="source">
+    <span class="label">Primær kilde til denne lektion</span>
+    <a href="https://automatetheboringstuff.com/3e/chapter4.html" target="_blank" rel="noopener">
+      Automate the Boring Stuff — Kapitel 4: "Functions"</a> af Al Sweigart. Denne lektion dækker kun det basale
+    (definere, kalde, parametre, <code>return</code>) — scope og fejlhåndtering kommer i en senere lektion.
+  </div>
+
+  <h2>1. At definere og kalde en funktion</h2>
+  <pre><code>def sig_hej():
+    print("Hej!")
+
+sig_hej()
+sig_hej()</code></pre>
+  <p>
+    <code>def</code> definerer funktionen — koden inde i den køres <strong>ikke</strong> før du rent faktisk kalder den
+    med <code>sig_hej()</code>. Her printer den to gange, fordi den kaldes to gange.
+  </p>
+
+  <h2>2. Parametre — at give funktionen noget at arbejde med</h2>
+  <pre><code>def sig_hej(navn):
+    print(f"Hej, {navn}!")
+
+sig_hej("Anna")
+sig_hej("Bo")</code></pre>
+  <p>
+    <code>navn</code> er en <strong>parameter</strong> — en variabel der kun eksisterer inde i funktionen, og som får sin
+    værdi fra det <strong>argument</strong> du sender med, når du kalder funktionen.
+  </p>
+
+  <h2>3. <code>return</code> — at få noget tilbage, ikke bare vise det</h2>
+  <p>Det her er den vigtigste (og mest forvekslede) del. Sammenlign:</p>
+  <pre><code>def kvadrat_a(tal):
+    print(tal * tal)
+
+def kvadrat_b(tal):
+    return tal * tal</code></pre>
+  <p>
+    <code>kvadrat_a(4)</code> <strong>viser</strong> <code>16</code> på skærmen med det samme, men giver ikke noget videre
+    til koden der kaldte den. <code>kvadrat_b(4)</code> viser <strong>ingenting</strong> — den <strong>sender værdien
+    tilbage</strong>, så du selv kan gøre noget med den:
+  </p>
+  <pre><code>resultat = kvadrat_b(4)
+print(resultat + 1)   # 17</code></pre>
+  <p>
+    Prøv det samme med <code>kvadrat_a</code>, og du får en fejl — <code>resultat</code> ville være <code>None</code>
+    (funktionens "ikke-noget"-værdi, fordi den aldrig brugte <code>return</code>), og <code>None + 1</code> kan Python ikke regne med.
+  </p>
+
+  <h2>Tjek din forståelse</h2>
+  <p style="font-family: var(--sans); color: var(--text-muted); font-size: 0.9rem;">
+    Forudsig outputtet, før du klikker.
+  </p>
+
+  <div id="quiz-1"></div>
+  <div id="quiz-2"></div>
+
+  <div class="task">
+    <h3>Din opgave</h3>
+    <p>
+      Omskriv <code>oevelser/echo_bot.py</code> (gerne som en ny fil, <code>oevelser/echo_bot_v2.py</code>, hvis du vil
+      beholde den gamle). Flyt selve "find ud af hvad botten skal svare"-delen ud i en funktion:
+    </p>
+    <ol>
+      <li>Skriv en funktion <code>def lav_bot_svar(besked):</code> der <strong>returnerer</strong> strengen
+        <code>f"Bot: Du sagde '{besked}'"</code> — den må <strong>ikke</strong> selv printe noget</li>
+      <li>Inde i din <code>while True</code>-løkke: kald funktionen, gem resultatet i en variabel, og <code>print()</code> den variabel dér i stedet</li>
+      <li>Behold din tæller og "afslut"-logik som de er</li>
+    </ol>
+    <p>
+      Hvis du kommer til at printe "None" et sted, er det et tegn på, at funktionen mangler sit <code>return</code> —
+      det er præcis den fælde, denne lektion advarer om.
+    </p>
+  </div>
+
+  <h2>Nyt i ordlisten</h2>
+  <p>
+    Se <a href="../reference/glossary.html">Python-ordlisten</a> for: funktion, parameter/argument, <code>return</code>.
+  </p>
+
+  <p class="ask-agent">
+    Sad du fast, eller virker noget uklart? Spørg din AI-underviser med det samme.
+  </p>
+
+  <div class="nav-links">
+    <span><a href="0003-while-loekker.html">← Forrige: while-løkker</a></span>
+    <span><a href="0005-opsamling.html">Næste: opsamling →</a></span>
+  </div>
+</div>
+
+<script src="../assets/quiz.js"></script>
+<script>
+  renderQuiz(document.getElementById('quiz-1'), {
+    question: 'Hvad printes?<pre><code>def dobbelt(tal):\n    print(tal * 2)\n\nresultat = dobbelt(5)\nprint(resultat)</code></pre>',
+    options: [
+      { text: '10 og derefter None', correct: true, explain: 'dobbelt() printer 10 selv, men returnerer intet — så resultat bliver None, som også printes.' },
+      { text: 'Kun 10', correct: false, explain: 'Den sidste linje print(resultat) kører også, og resultat er None fordi funktionen ikke bruger return.' },
+      { text: '10 og derefter 10', correct: false, explain: 'Funktionen returnerer ikke tal * 2 — den printer det bare. resultat får derfor værdien None, ikke 10.' },
+    ]
+  });
+
+  renderQuiz(document.getElementById('quiz-2'), {
+    question: 'Hvad printes?<pre><code>def kvadrat(tal):\n    return tal * tal\n\nprint(kvadrat(4) + 1)</code></pre>',
+    options: [
+      { text: '17', correct: true, explain: 'kvadrat(4) returnerer 16, som lægges sammen med 1 før print() kaldes.' },
+      { text: '16', correct: false, explain: 'Der lægges 1 til det returnerede resultat, før print() nogensinde kaldes — det tal bliver 17, ikke 16.' },
+      { text: 'Fejl (crash)', correct: false, explain: 'return giver et rigtigt tal (16) tilbage, så +1 er en helt almindelig, gyldig udregning.' },
+    ]
+  });
+</script>
+</body>
+</html>

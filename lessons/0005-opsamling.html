@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="da">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lektion 5: Opsamling</title>
+<link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+<div class="page">
+  <p class="kicker">Lektion 5 — opsamling, intet nyt stof</p>
+  <h1>Sidder det på rygraden?</h1>
+
+  <p>
+    Du har løst hver opgave i lektion 1-4 — variable, betingelser, løkker, funktioner. Men at løse en opgave med
+    lektionen frisk i hukommelsen er noget andet end at kunne hive logikken frem, når emnerne er blandet sammen uden
+    varsel. Det er det, denne lektion tester. Ingen nye begreber, ingen "sådan gør du"-eksempler lige før opgaverne —
+    kun genkaldelse.
+  </p>
+
+  <div class="callout">
+    <strong>Hvorfor det her betyder noget:</strong> Det du kan gøre <em>lige efter</em> at have læst om det, er "fluency" —
+    det forsvinder hurtigt. Det du kan gøre <em>uden</em> et frisk eksempel foran dig, er "storage strength" — det der
+    holder. AI-chatbotten i næste lektion bygger direkte oven på funktioner og løkker, så det er værd at vide, om
+    fundamentet holder, før vi bygger videre.
+  </div>
+
+  <h2>Blandet genkaldelse</h2>
+  <p style="font-family: var(--sans); color: var(--text-muted); font-size: 0.9rem;">
+    Spørgsmålene blander bevidst emnerne — det er ikke "nu tester vi løkker, nu tester vi funktioner" i rækkefølge.
+  </p>
+
+  <div id="quiz-1"></div>
+  <div id="quiz-2"></div>
+  <div id="quiz-3"></div>
+  <div id="quiz-4"></div>
+
+  <h2>Skriv det selv — tre små, urelaterede opgaver</h2>
+  <p>
+    Ingen af disse ligner et eksempel, du lige har set. De er bevidst <em>ikke</em> chatbot-temaet igen — det er for
+    let at genkende mønstret og bare omskrive det, uden reelt at hente logikken frem selv.
+  </p>
+
+  <div class="task">
+    <h3>Opgave A — funktion + betingelse</h3>
+    <p>
+      Skriv en funktion <code>er_myndig(alder)</code>, der returnerer <code>True</code> hvis alderen er 18 eller derover,
+      ellers <code>False</code>. Kald den med et par forskellige aldre, og print resultatet hver gang.
+    </p>
+  </div>
+
+  <div class="task">
+    <h3>Opgave B — løkke + tæller, uden bot</h3>
+    <p>
+      Skriv et script der bruger en <code>while</code>-løkke til at spørge brugeren om ét tal ad gangen og lægge dem
+      sammen. Løkken skal stoppe, når brugeren taster <code>"stop"</code> i stedet for et tal — og til sidst printe
+      den samlede sum.
+    </p>
+  </div>
+
+  <div class="task">
+    <h3>Opgave C — alt på én gang</h3>
+    <p>
+      Skriv en funktion <code>beskriv_tal(tal)</code> der returnerer <code>"positivt"</code>, <code>"negativt"</code>
+      eller <code>"nul"</code> afhængigt af tallet. Brug den derefter inde i en løkke, der bliver ved med at spørge om
+      tal og printe beskrivelsen, indtil brugeren taster <code>"stop"</code>.
+    </p>
+  </div>
+
+  <p class="ask-agent">
+    Hvis en opgave føles helt uigennemskuelig — ikke "svær", men decideret blank — er det vigtig information, ikke en
+    fiasko. Sig det, så finder vi ud af præcis hvor tråden tabes, i stedet for at jeg bare viser løsningen.
+  </p>
+
+  <div class="nav-links">
+    <span><a href="0004-funktioner.html">← Forrige: funktioner</a> · <a href="../reference/grundlaeggende-python.html">Opsummering</a></span>
+    <span><a href="0006-dictionaries.html">Næste: dictionaries →</a></span>
+  </div>
+</div>
+
+<script src="../assets/quiz.js"></script>
+<script>
+  renderQuiz(document.getElementById('quiz-1'), {
+    question: 'Hvad printer dette?<pre><code>def check(tal):\n    if tal % 2 == 0:\n        return "lige"\n    return "ulige"\n\nprint(check(7))</code></pre>',
+    options: [
+      { text: 'ulige', correct: true, explain: '7 % 2 giver 1 (rest), så if-betingelsen er falsk — den anden return-linje rammes.' },
+      { text: 'lige', correct: false, explain: '% er resten efter division. 7 % 2 = 1, ikke 0 — så if-blokken springes over.' },
+      { text: 'None', correct: false, explain: 'Funktionen har et return uden for if — den rammes altid, hvis if-grenen ikke rammer.' },
+    ]
+  });
+
+  renderQuiz(document.getElementById('quiz-2'), {
+    question: 'Hvor mange gange printer denne løkke "Du: "?<pre><code>n = 0\nwhile n < 3:\n    svar = input("Du: ")\n    n = n + 1</code></pre>',
+    options: [
+      { text: '3 gange', correct: true, explain: 'n starter på 0 og løkken kører mens n < 3: ved n=0,1,2 — altså 3 gennemløb, før n=3 stopper den.' },
+      { text: '4 gange', correct: false, explain: 'Betingelsen tjekkes FØR hver gentagelse — ved n=3 er 3 < 3 falsk, så et 4. gennemløb sker aldrig.' },
+      { text: 'Uendeligt', correct: false, explain: 'n = n + 1 sørger for at n til sidst når 3, hvor betingelsen bliver falsk.' },
+    ]
+  });
+
+  renderQuiz(document.getElementById('quiz-3'), {
+    question: 'Hvad printes?<pre><code>def dobbelt(tal):\n    tal * 2\n\nx = dobbelt(5)\nprint(x)</code></pre>',
+    options: [
+      { text: 'None', correct: true, explain: 'Funktionen udregner tal * 2 men returnerer den aldrig — der mangler et return. x bliver derfor None.' },
+      { text: '10', correct: false, explain: 'Uden return-nøgleordet bliver udregningen aldrig sendt tilbage til x — den forsvinder bare.' },
+      { text: 'Fejl (crash)', correct: false, explain: 'En funktion uden return crasher ikke — den returnerer stille og roligt None.' },
+    ]
+  });
+
+  renderQuiz(document.getElementById('quiz-4'), {
+    question: '<strong>Brugeren taster "5", derefter "stop".</strong> Hvad printes til sidst?<pre><code>def er_positivt(tal):\n    return tal > 0\n\nn = 0\nwhile True:\n    x = input("Tal: ")\n    if x == "stop":\n        break\n    n = n + 1\nprint(n)</code></pre>',
+    options: [
+      { text: '1', correct: true, explain: '"5" tælles med (n=1), før "stop" rammer break — er_positivt() bliver aldrig engang kaldt her.' },
+      { text: '0', correct: false, explain: 'n = n + 1 rammes FØR break på "stop" — "5" nåede at blive talt, inden løkken stoppede.' },
+      { text: 'True', correct: false, explain: 'print(n) printer tælleren n, ikke resultatet af er_positivt() — den funktion bliver faktisk aldrig kaldt i dette script.' },
+    ]
+  });
+</script>
+</body>
+</html>
